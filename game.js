@@ -15,11 +15,11 @@ function nextSequence()
   var randomNumber = Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
 
   //TO-DO:
-  //Add the value of the selector into a variable
-  //Call the respective sound whenever the respective button is called
-  //Wrap it up in a separate function for readability
+  //Add the value of the selector into a variable -- OK
+  //Call the respective sound whenever the respective button is called -- OK
+  //Wrap it up in a separate function for readability -- HALF
   currentButton = "#" + buttonColours[randomNumber];
-  
+
   //Function to play the button's respective sound.
   playButtonSound(currentButton);
   $(currentButton).fadeToggle("complete", function()

@@ -3,7 +3,8 @@ var buttonColours = ["red", "green", "blue", "yellow"];
 var currentButton;
 
 //Holds the game's patterns up to this round
-var gamePattern;
+var expectedGameSequence;
+var userSequence;
 
 function nextSequence()
 {
@@ -15,17 +16,15 @@ function nextSequence()
   var randomNumber = Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
 
   //TO-DO:
-  //Add the value of the selector into a variable -- OK
-  //Call the respective sound whenever the respective button is called -- OK
   //Wrap it up in a separate function for readability -- HALF
   currentButton = "#" + buttonColours[randomNumber];
 
   //Function to play the button's respective sound.
   playButtonSound(currentButton);
-  $(currentButton).fadeToggle("complete", function()
+  $(currentButton).fadeToggle(200, function()
     {
       //Function called whenever the fade animation (FadeOut) is complete.
-      $(currentButton).fadeToggle();
+      $(currentButton).fadeToggle(200);
     });
 }
 

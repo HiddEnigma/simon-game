@@ -1,7 +1,12 @@
 //Array containing the colour of the buttons
 var buttonColours = ["red", "green", "blue", "yellow"];
+
+//Variables for buttons
 var buttonToBePressed;
 var pressedButton;
+
+//Variable containing the current level of the game
+var currentLevel = 0;
 
 //Holds the game's patterns up to this round
 var expectedGameSequence = new Array();
@@ -19,9 +24,16 @@ function nextSequence()
   //Adds the button ID and the colour name to variables
   buttonToBePressed = buttonColours[randomNumber];
 
-  //Function to play the button's respective sound.
+  //Adds current button colour to the game sequence array
+  expectedGameSequence.push(buttonToBePressed);
+
+  //Sets the current level to the length of the current game sequence
+  currentLevel = expectedGameSequence.length;
+
+  //Functions to play the button's respective sound, animate the button and change game text.
   playButtonSound(buttonToBePressed);
   animateButtonOnGameSequence("#" + buttonToBePressed);
+  changeGameText("Level " + currentLevel);
 }
 
 function animateButtonOnGameSequence(buttonToBeAnimated)
@@ -78,10 +90,24 @@ function addEventHandlerOnButtonClick()
     });
 }
 
+function addEventHandlerOnKeyboardPress()
+{
+  //On first keypress in the document, call nextSequence to initialize game and changes the game level text.
+  $(document).one("keypress", function()
+  {
+    nextSequence();
+    changeGameText(currentLevel)
+  });
+}
+
+function changeGameText(gameLevel)
+{
+  $("#level-title").text("Level " + gameLevel);
+}
 
 
 
 
 ///Main////
-
+addEventHandlerOnKeyboardPress();
 addEventHandlerOnButtonClick();

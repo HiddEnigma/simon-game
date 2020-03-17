@@ -33,7 +33,7 @@ function nextSequence()
   //Functions to play the button's respective sound, animate the button and change game text.
   playButtonSound(buttonToBePressed);
   animateButtonOnGameSequence("#" + buttonToBePressed);
-  changeGameText("Level " + currentLevel);
+  changeGameText(currentLevel);
 }
 
 function animateButtonOnGameSequence(buttonToBeAnimated)

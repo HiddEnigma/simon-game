@@ -21,16 +21,21 @@ function nextSequence()
 
   //Function to play the button's respective sound.
   playButtonSound(buttonToBePressed);
-  animateButton("#" + buttonToBePressed);
+  animateButtonOnGameSequence("#" + buttonToBePressed);
 }
 
-function animateButton(buttonToBeAnimated)
+function animateButtonOnGameSequence(buttonToBeAnimated)
 {
   $(buttonToBeAnimated).fadeToggle(200, function()
     {
       //Function called whenever the fade animation (FadeOut) is complete.
       $(buttonToBeAnimated).fadeToggle(200);
     });
+}
+
+function animateButtonOnPlayerClick(buttonToBeAnimated)
+{
+  $(buttonToBeAnimated).toggleClass("pressed", 200).toggleClass("pressed", 200);
 }
 
 function playButtonSound(buttonToBePlayed)
@@ -60,10 +65,15 @@ function addEventHandlerOnButtonClick()
 {
   $(".btn").click(function()
     {
+      //Stores the ID of the button pressed in a variable
       pressedButton = this.id;
+
       userSequence.push(pressedButton);
+
+      //Plays the respective button's sound, as well as animates the button as per user click.
       playButtonSound(pressedButton);
-      animateButton("#" + pressedButton);
+      animateButtonOnPlayerClick("#" + pressedButton);
+
       console.log(userSequence);
     });
 }

@@ -35,7 +35,7 @@ function animateButtonOnGameSequence(buttonToBeAnimated)
 
 function animateButtonOnPlayerClick(buttonToBeAnimated)
 {
-  $(buttonToBeAnimated).toggleClass("pressed", 200).toggleClass("pressed", 200);
+  $(buttonToBeAnimated).toggleClass("pressed", 100).toggleClass("pressed", 100);
 }
 
 function playButtonSound(buttonToBePlayed)

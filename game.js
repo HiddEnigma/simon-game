@@ -116,25 +116,15 @@ function checkPlayerAnswer(userMove)
   {
     if(userMove[userMoveNumber] != expectedGameSequence[userMoveNumber])
     {
-      //Debug:
-      console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
-
       wrongChoice();
-
     }
     else
     {
       userMoveNumber++;
-
-      //Debug:
-      console.log(userMove + " was a correct move.");
-      console.log(userMove + " as opposed to " + expectedGameSequence);
     }
   }
   else
   {
-    console.log("Victory!");
-
     roundReset ();
     setTimeout(nextSequence, 1000);
   }
@@ -143,8 +133,6 @@ function checkPlayerAnswer(userMove)
 
 function nextSequence ()
 {
-  //Debug:
-  console.log("nextSequence is being called.");
 
   //Sets min-max values for the rolls
   var minimumNumber = 0;

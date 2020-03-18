@@ -11,6 +11,7 @@ var currentLevel = 0;
 
 //Holds the game's patterns up to this round
 var expectedGameSequence = new Array();
+var userSequence = new Array();
 var userMoveNumber = 0;
 
 ///////////////////////////////////FUNCTIONS///////////////////////////////////
@@ -20,14 +21,14 @@ function addEventHandlerOnButtonClick()
     {
       //Stores the ID of the button pressed in a variable
       pressedButton = this.id;
-      userMoveNumber++;
+      userSequence.push(pressedButton);
 
       //Plays the respective button's sound, as well as animates the button as per user click.
       playButtonSound(pressedButton);
       animateButtonOnPlayerClick("#" + pressedButton);
 
       //Checks if the player made a correct move.
-      checkPlayerAnswer(pressedButton);
+      checkPlayerAnswer(userSequence);
     });
 }
 
@@ -63,25 +64,34 @@ function changeGameText(gameLevel)
 ///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.
 function checkPlayerAnswer(userMove)
 {
-  if(userMove != expectedGameSequence[userMoveNumber])
+  if(userMove != expectedGameSequence)
   {
-    var wrong = new Audio("sounds/wrong.mp3");
-    wrong.play();
+    if(userMove[userMoveNumber] != expectedGameSequence[userMoveNumber])
+    {
+      //Debug:
+      console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
 
-    //Debug:
-    console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
+      var wrong = new Audio("sounds/wrong.mp3");
+      wrong.play();
 
-    setTimeout(restartGame, 1000);
+      setTimeout(restartGame, 1000);
+    }
+    else
+    {
+      userMoveNumber++;
+
+      //Debug:
+      console.log(userMove + " was a correct move.");
+    }
   }
-
-  if(userMoveNumber === currentLevel)
+  else
   {
-    userMoveNumber = 0;
+    console.log("Victory!");
+
+    roundReset();
     setTimeout(nextSequence, 400);
   }
 
-  //Debug:
-  console.log(userMove + " was a correct move.");
 }
 
 function nextSequence()
@@ -133,11 +143,24 @@ function playButtonSound(buttonToBePlayed)
 
 function restartGame()
 {
+  //Resets variables, changes gameText to the initial value and re-starts the sequence.
   expectedGameSequence.length = 0;
+  userSequence.length = 0;
+
 
   currentLevel = 0;
-  
+  userMoveNumber = 0;
+
   changeGameText(currentLevel);
+  nextSequence();
+}
+
+function roundReset()
+{
+  //Resets user variables for the next round.
+  userSequence.length = 0;
+
+  userMoveNumber = 0;
 }
 
 

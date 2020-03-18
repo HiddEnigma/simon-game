@@ -220,7 +220,7 @@ function wrongChoice ()
   var wrong = new Audio("sounds/wrong.mp3");
   wrong.play ();
 
-  setTimeout(restartGame, 2000);
+  setTimeout(restartGame, 1000);
 }
 
 ///Main////

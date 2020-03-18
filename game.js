@@ -56,11 +56,6 @@ function animateButtonOnPlayerClick(buttonToBeAnimated)
   $(buttonToBeAnimated).toggleClass("pressed", 100).toggleClass("pressed", 100);
 }
 
-function changeGameText(gameLevel)
-{
-  $("#level-title").text("Level " + gameLevel);
-}
-
 function arrayEquals(arrayA, arrayB)
 {
   //Checks if the arrays are exactly the same.
@@ -86,6 +81,10 @@ function arrayEquals(arrayA, arrayB)
   {
     return arrayA == arrayB;
   }
+}
+function changeGameText(gameLevel)
+{
+  $("#level-title").text("Level " + gameLevel);
 }
 
 ///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.

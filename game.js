@@ -47,9 +47,7 @@ function addEventHandlerOnKeyboardPress ()
       }
       else
       {
-        restartGame();
-
-        setTimeout(nextSequence, 600);
+        setTimeout(nextSequence, 1000);
         changeGameTextToLevel(currentLevel);
       }
     }

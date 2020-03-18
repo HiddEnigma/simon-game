@@ -61,6 +61,33 @@ function changeGameText(gameLevel)
   $("#level-title").text("Level " + gameLevel);
 }
 
+function arrayEquals(arrayA, arrayB)
+{
+  //Checks if the arrays are exactly the same.
+
+  if(arrayA instanceof Array && arrayB instanceof Array)
+  {
+    if(arrayA.length != arrayB.length)
+    {
+      return false;
+    }
+
+    for(var i = 0; i < arrayA.length; i++)
+    {
+      if(!arrayEquals(arrayA[i], arrayB[i]))
+      {
+        return false;
+      }
+    }
+
+    return true;
+  }
+  else
+  {
+    return arrayA == arrayB;
+  }
+}
+
 ///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.
 function checkPlayerAnswer(userMove)
 {
@@ -82,6 +109,7 @@ function checkPlayerAnswer(userMove)
 
       //Debug:
       console.log(userMove + " was a correct move.");
+      console.log(userMove + "as opposed to" + expectedGameSequence);
     }
   }
   else
@@ -96,6 +124,9 @@ function checkPlayerAnswer(userMove)
 
 function nextSequence()
 {
+  //Debug:
+  console.log("nextSequence is being called.");
+
   //Sets min-max values for the rolls
   var minimumNumber = 0;
   var maximumNumber = 3;

@@ -90,7 +90,7 @@ function changeGameText(gameLevel)
 ///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.
 function checkPlayerAnswer(userMove)
 {
-  if(userMove != expectedGameSequence)
+  if(!arrayEquals(userMove, expectedGameSequence))
   {
     if(userMove[userMoveNumber] != expectedGameSequence[userMoveNumber])
     {

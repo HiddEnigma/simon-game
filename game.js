@@ -30,6 +30,7 @@ function addEventHandlerOnButtonClick()
       animateButtonOnPlayerClick("#" + pressedButton);
 
       //Checks if the player made a correct move.
+      checkPlayerAnswer(pressedButton);
     });
 }
 

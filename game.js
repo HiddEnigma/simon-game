@@ -136,6 +136,8 @@ function restartGame()
   expectedGameSequence.length = 0;
 
   currentLevel = 0;
+  
+  changeGameText(currentLevel);
 }
 
 

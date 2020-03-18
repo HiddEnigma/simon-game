@@ -47,8 +47,7 @@ function addEventHandlerOnKeyboardPress ()
       }
       else
       {
-        setTimeout(nextSequence, 1000);
-        changeGameTextToLevel(currentLevel);
+        setTimeout(nextSequence, 2000);
       }
     }
   });
@@ -206,7 +205,7 @@ function wrongChoice ()
   var wrong = new Audio("sounds/wrong.mp3");
   wrong.play ();
 
-  setTimeout(restartGame, 1000);
+  setTimeout(restartGame, 200);
 }
 
 ///Main////

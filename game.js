@@ -6,9 +6,6 @@ var buttonColours = ["red", "green", "blue", "yellow"];
 var buttonToBePressed;
 var pressedButton;
 
-//Variable for calling timeout Function
-var timeoutID;
-
 //Variable containing the current level of the game
 var currentLevel = 0;
 
@@ -72,15 +69,15 @@ function checkPlayerAnswer(userMove)
     wrong.play();
 
     //Debug:
-    console.log(userMove + " was not a correct move.");
+    console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
 
-    timeoutID.setTimeout(restartGame, 1000);
+    setTimeout(restartGame, 1000);
   }
 
   if(userMoveNumber === currentLevel)
   {
     userMoveNumber = 0;
-    timeoutID.setTimeout(nextSequence, 400);
+    setTimeout(nextSequence, 400);
   }
 
   //Debug:

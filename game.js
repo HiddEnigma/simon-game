@@ -75,7 +75,6 @@ function checkPlayerAnswer(userMove)
     console.log(userMove + " was not a correct move.");
 
     timeoutID.setTimeout(restartGame, 1000);
-    break;
   }
 
   if(userMoveNumber === currentLevel)

@@ -1,3 +1,4 @@
+///////////////////////////////////VARS///////////////////////////////////
 //Array containing the colour of the buttons
 var buttonColours = ["red", "green", "blue", "yellow"];
 
@@ -5,12 +6,86 @@ var buttonColours = ["red", "green", "blue", "yellow"];
 var buttonToBePressed;
 var pressedButton;
 
+//Variable for calling timeout Function
+var timeoutID;
+
 //Variable containing the current level of the game
 var currentLevel = 0;
 
 //Holds the game's patterns up to this round
 var expectedGameSequence = new Array();
-var userSequence = new Array();
+var userMoveNumber = 0;
+
+///////////////////////////////////FUNCTIONS///////////////////////////////////
+function addEventHandlerOnButtonClick()
+{
+  $(".btn").click(function()
+    {
+      //Stores the ID of the button pressed in a variable
+      pressedButton = this.id;
+      userMoveNumber++;
+
+      //Plays the respective button's sound, as well as animates the button as per user click.
+      playButtonSound(pressedButton);
+      animateButtonOnPlayerClick("#" + pressedButton);
+
+      //Checks if the player made a correct move.
+    });
+}
+
+function addEventHandlerOnKeyboardPress()
+{
+  //On first keypress in the document, call nextSequence to initialize game and changes the game level text.
+  $(document).one("keypress", function()
+  {
+    nextSequence();
+    changeGameText(currentLevel)
+  });
+}
+
+function animateButtonOnGameSequence(buttonToBeAnimated)
+{
+  $(buttonToBeAnimated).fadeToggle(200, function()
+    {
+      //Function called whenever the fade animation (FadeOut) is complete.
+      $(buttonToBeAnimated).fadeToggle(200);
+    });
+}
+
+function animateButtonOnPlayerClick(buttonToBeAnimated)
+{
+  $(buttonToBeAnimated).toggleClass("pressed", 100).toggleClass("pressed", 100);
+}
+
+function changeGameText(gameLevel)
+{
+  $("#level-title").text("Level " + gameLevel);
+}
+
+///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.
+function checkPlayerAnswer(userMove)
+{
+  if(userMove != expectedGameSequence[userMoveNumber])
+  {
+    var wrong = new Audio("sounds/wrong.mp3");
+    wrong.play();
+
+    //Debug:
+    console.log(userMove + " was not a correct move.");
+
+    timeoutID.setTimeout(restartGame, 1000);
+    break;
+  }
+
+  if(userMoveNumber === currentLevel)
+  {
+    userMoveNumber = 0;
+    timeoutID.setTimeout(nextSequence, 400);
+  }
+
+  //Debug:
+  console.log(userMove + " was a correct move.");
+}
 
 function nextSequence()
 {
@@ -36,20 +111,6 @@ function nextSequence()
   changeGameText(currentLevel);
 }
 
-function animateButtonOnGameSequence(buttonToBeAnimated)
-{
-  $(buttonToBeAnimated).fadeToggle(200, function()
-    {
-      //Function called whenever the fade animation (FadeOut) is complete.
-      $(buttonToBeAnimated).fadeToggle(200);
-    });
-}
-
-function animateButtonOnPlayerClick(buttonToBeAnimated)
-{
-  $(buttonToBeAnimated).toggleClass("pressed", 100).toggleClass("pressed", 100);
-}
-
 function playButtonSound(buttonToBePlayed)
 {
   switch (buttonToBePlayed)
@@ -73,39 +134,12 @@ function playButtonSound(buttonToBePlayed)
   }
 }
 
-function addEventHandlerOnButtonClick()
+function restartGame()
 {
-  $(".btn").click(function()
-    {
-      //Stores the ID of the button pressed in a variable
-      pressedButton = this.id;
+  expectedGameSequence.length = 0;
 
-      userSequence.push(pressedButton);
-
-      //Plays the respective button's sound, as well as animates the button as per user click.
-      playButtonSound(pressedButton);
-      animateButtonOnPlayerClick("#" + pressedButton);
-
-      console.log(userSequence);
-    });
+  currentLevel = 0;
 }
-
-function addEventHandlerOnKeyboardPress()
-{
-  //On first keypress in the document, call nextSequence to initialize game and changes the game level text.
-  $(document).one("keypress", function()
-  {
-    nextSequence();
-    changeGameText(currentLevel)
-  });
-}
-
-function changeGameText(gameLevel)
-{
-  $("#level-title").text("Level " + gameLevel);
-}
-
-
 
 
 ///Main////

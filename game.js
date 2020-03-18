@@ -49,7 +49,7 @@ function addEventHandlerOnKeyboardPress ()
       {
         restartGame();
 
-        nextSequence();
+        setTimeout(nextSequence, 600);
         changeGameTextToLevel(currentLevel);
       }
     }

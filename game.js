@@ -100,7 +100,7 @@ function checkPlayerAnswer(userMove)
       var wrong = new Audio("sounds/wrong.mp3");
       wrong.play();
 
-      setTimeout(restartGame, 1000);
+      setTimeout(restartGame, 4000);
     }
     else
     {
@@ -108,7 +108,7 @@ function checkPlayerAnswer(userMove)
 
       //Debug:
       console.log(userMove + " was a correct move.");
-      console.log(userMove + "as opposed to" + expectedGameSequence);
+      console.log(userMove + " as opposed to " + expectedGameSequence);
     }
   }
   else
@@ -116,7 +116,7 @@ function checkPlayerAnswer(userMove)
     console.log("Victory!");
 
     roundReset();
-    setTimeout(nextSequence, 400);
+    setTimeout(nextSequence, 1000);
   }
 
 }

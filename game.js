@@ -6,18 +6,19 @@ var buttonColours = ["red", "green", "blue", "yellow"];
 var buttonToBePressed;
 var pressedButton;
 
-//Variable containing the current level of the game
+//Variable containing the current level of the game, as well sa a boolean of whether the game started or not
 var currentLevel = 0;
+var hasStarted = false;
 
 //Holds the game's patterns up to this round
-var expectedGameSequence = new Array();
-var userSequence = new Array();
+var expectedGameSequence = new Array ();
+var userSequence = new Array ();
 var userMoveNumber = 0;
 
 ///////////////////////////////////FUNCTIONS///////////////////////////////////
-function addEventHandlerOnButtonClick()
+function addEventHandlerOnButtonClick ()
 {
-  $(".btn").click(function()
+  $(".btn").click(function ()
     {
       //Stores the ID of the button pressed in a variable
       pressedButton = this.id;
@@ -32,19 +33,37 @@ function addEventHandlerOnButtonClick()
     });
 }
 
-function addEventHandlerOnKeyboardPress()
+function addEventHandlerOnKeyboardPress ()
 {
   //On first keypress in the document, call nextSequence to initialize game and changes the game level text.
-  $(document).one("keypress", function()
+  $(document).keypress(function ()
   {
-    nextSequence();
-    changeGameText(currentLevel)
+    if (currentLevel === 0)
+    {
+      if (!hasStarted)
+      {
+        nextSequence ();
+        changeGameTextToLevel(currentLevel)
+      }
+      else
+      {
+        restartGame();
+        
+        nextSequence();
+        changeGameTextToLevel(currentLevel);
+      }
+    }
   });
+}
+
+function animateBackgroundOnWrongChoice ()
+{
+  $("body").toggleClass("game-over", 100).toggleClass("game-over", 100);
 }
 
 function animateButtonOnGameSequence(buttonToBeAnimated)
 {
-  $(buttonToBeAnimated).fadeToggle(200, function()
+  $(buttonToBeAnimated).fadeToggle(200, function ()
     {
       //Function called whenever the fade animation (FadeOut) is complete.
       $(buttonToBeAnimated).fadeToggle(200);
@@ -82,9 +101,14 @@ function arrayEquals(arrayA, arrayB)
     return arrayA == arrayB;
   }
 }
-function changeGameText(gameLevel)
+function changeGameTextToLevel(gameLevel)
 {
   $("#level-title").text("Level " + gameLevel);
+}
+
+function changeGameTextToReset()
+{
+  $("#level-title").text("Too bad! Press any key to try again!");
 }
 
 ///Compares player answer to expected sequence. If correct, keep going. If not, play 'Wrong' audio and re-start.
@@ -97,10 +121,7 @@ function checkPlayerAnswer(userMove)
       //Debug:
       console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
 
-      var wrong = new Audio("sounds/wrong.mp3");
-      wrong.play();
 
-      setTimeout(restartGame, 4000);
     }
     else
     {
@@ -115,13 +136,13 @@ function checkPlayerAnswer(userMove)
   {
     console.log("Victory!");
 
-    roundReset();
+    roundReset ();
     setTimeout(nextSequence, 1000);
   }
 
 }
 
-function nextSequence()
+function nextSequence ()
 {
   //Debug:
   console.log("nextSequence is being called.");
@@ -131,7 +152,7 @@ function nextSequence()
   var maximumNumber = 3;
 
   //Generates a random number based on the min-max values set up earlier.
-  var randomNumber = Math.floor(Math.random() * (maximumNumber - minimumNumber + 1) + minimumNumber);
+  var randomNumber = Math.floor(Math.random () * (maximumNumber - minimumNumber + 1) + minimumNumber);
 
   //Adds the button ID and the colour name to variables
   buttonToBePressed = buttonColours[randomNumber];
@@ -145,7 +166,7 @@ function nextSequence()
   //Functions to play the button's respective sound, animate the button and change game text.
   playButtonSound(buttonToBePressed);
   animateButtonOnGameSequence("#" + buttonToBePressed);
-  changeGameText(currentLevel);
+  changeGameTextToLevel(currentLevel);
 }
 
 function playButtonSound(buttonToBePlayed)
@@ -154,24 +175,24 @@ function playButtonSound(buttonToBePlayed)
   {
     case "red":
       var redSound = new Audio("sounds/red.mp3");
-      redSound.play();
+      redSound.play ();
       break;
     case "green":
       var greenSound = new Audio("sounds/green.mp3");
-      greenSound.play();
+      greenSound.play ();
       break;
     case "blue":
       var blueSound = new Audio("sounds/blue.mp3");
-      blueSound.play();
+      blueSound.play ();
       break;
     case "yellow":
       var yellowSound = new Audio("sounds/yellow.mp3");
-      yellowSound.play();
+      yellowSound.play ();
       break;
   }
 }
 
-function restartGame()
+function restartGame ()
 {
   //Resets variables, changes gameText to the initial value and re-starts the sequence.
   expectedGameSequence.length = 0;
@@ -181,11 +202,10 @@ function restartGame()
   currentLevel = 0;
   userMoveNumber = 0;
 
-  changeGameText(currentLevel);
-  nextSequence();
+  changeGameTextToReset();
 }
 
-function roundReset()
+function roundReset ()
 {
   //Resets user variables for the next round.
   userSequence.length = 0;
@@ -193,7 +213,15 @@ function roundReset()
   userMoveNumber = 0;
 }
 
+function wrongChoice ()
+{
+  animateBackgroundOnWrongChoice ();
+  var wrong = new Audio("sounds/wrong.mp3");
+  wrong.play ();
+
+  setTimeout(restartGame, 2000);
+}
 
 ///Main////
-addEventHandlerOnKeyboardPress();
-addEventHandlerOnButtonClick();
+addEventHandlerOnKeyboardPress ();
+addEventHandlerOnButtonClick ();

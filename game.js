@@ -48,7 +48,7 @@ function addEventHandlerOnKeyboardPress ()
       else
       {
         restartGame();
-        
+
         nextSequence();
         changeGameTextToLevel(currentLevel);
       }
@@ -121,6 +121,7 @@ function checkPlayerAnswer(userMove)
       //Debug:
       console.log(userMove + " was not a correct move. It should have been: " + expectedGameSequence[userMoveNumber]);
 
+      wrongChoice();
 
     }
     else

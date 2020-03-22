@@ -159,7 +159,7 @@ function changeGameTextToLevel(gameLevel)
 
 function changeGameTextToReset()
 {
-  $("#level-title").text("Too bad! Press any key to try again!");
+  $("#level-title").text("You can do it, honey! Press any key to try again!");
 }
 
 function checkIfGameCanBePlayed ()

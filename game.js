@@ -72,19 +72,21 @@ function addEventHandlerOnGameButtonClick ()
 
 function addEventHandlerOnDifficultyHover ()
 {
-  $("btn-clear").hover(function ()
+  $(".btn-clear").hover(function ()
     {
-      if ($(this).text("easy"))
+      //If the button is easy, show one description in h3. If hard, another.
+      if (this.id === "easy")
       {
-        $(".difficulty-description").text("The entire sequence will be played each round.");
+        $("h3").text("The entire sequence will be played each round.");
       }
       else
       {
-        $(".difficulty-description").text("Good luck remembering everything up to this point...");
+        $("h3").text("Good luck remembering everything up to this point...");
       }
     }, function ()
     {
-      $(".difficulty-description").text("");
+      //Empties h3 of text after hovering is done.
+      $("h3").text("");
     });
 }
 

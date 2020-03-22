@@ -49,6 +49,7 @@ function addEventHandlerOnDifficultyButtonClick ()
     }
   });
 }
+
 function addEventHandlerOnGameButtonClick ()
 {
   $(".btn").click(function ()
@@ -66,6 +67,24 @@ function addEventHandlerOnGameButtonClick ()
         //Checks if the player made a correct move.
         checkPlayerAnswer(userSequence);
       }
+    });
+}
+
+function addEventHandlerOnDifficultyHover ()
+{
+  $("btn-clear").hover(function ()
+    {
+      if ($(this).text("easy"))
+      {
+        $(".difficulty-description").text("The entire sequence will be played each round.");
+      }
+      else
+      {
+        $(".difficulty-description").text("Good luck remembering everything up to this point...");
+      }
+    }, function ()
+    {
+      $(".difficulty-description").text("");
     });
 }
 
@@ -230,7 +249,7 @@ function nextSequence ()
       playButtonSound(buttonToBePressed);
       animateButtonOnGameSequence("#" + buttonToBePressed);
       break;
-      
+
     default:
       alert("Something has gone horribly wrong.");
       break;
@@ -296,4 +315,5 @@ function wrongChoice ()
 ///Main////
 addEventHandlerOnKeyboardPress ();
 addEventHandlerOnDifficultyButtonClick();
+addEventHandlerOnDifficultyHover ();
 addEventHandlerOnGameButtonClick ();

@@ -26,6 +26,10 @@ body {
   border-radius: 20%;
 }
 
+.btn:hover {
+  cursor: pointer;
+}
+
 .btn-clear {
   border: none;
   color: #989172;
@@ -42,6 +46,7 @@ body {
 
 .btn-clear:hover {
   color: #E4D9AB;
+  cursor: pointer;
 }
 
 .btn-pressed {

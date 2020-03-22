@@ -224,11 +224,13 @@ function nextSequence ()
         animateButtonOnGameSequence("#" + buttonToBePressed);
       }
       break;
+
     case "hard":
       //If difficulty is hard, only play current move.
       playButtonSound(buttonToBePressed);
       animateButtonOnGameSequence("#" + buttonToBePressed);
       break;
+      
     default:
       alert("Something has gone horribly wrong.");
       break;

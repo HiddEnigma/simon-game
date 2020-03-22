@@ -5,6 +5,11 @@ body {
   color: #FEF2BF;
 }
 
+h3 {
+  color: #989172;
+  size: 0.8rem;
+}
+
 #level-title {
   font-size: 2rem;
   margin:  5%;

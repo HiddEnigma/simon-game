@@ -148,9 +148,31 @@ function nextSequence ()
   //Sets the current level to the length of the current game sequence
   currentLevel = expectedGameSequence.length;
 
-  //Functions to play the button's respective sound, animate the button and change game text.
-  playButtonSound(buttonToBePressed);
-  animateButtonOnGameSequence("#" + buttonToBePressed);
+  //Functions that checks if the game has already started
+  if (currentLevel > 1)
+  {
+    //If so, set a counter variable to 0
+    var i = 0;
+    //Calls setinterval because for loops in JS don't respect setTimeout. Will basically play out all of the moves so far.
+    var showPreviousMoves = setInterval(function()
+      {
+
+        playButtonSound(expectedGameSequence[i]);
+        animateButtonOnGameSequence("#" + expectedGameSequence[i]);
+        i++;
+        if (i === currentLevel)
+        {
+          clearInterval(showPreviousMoves);
+        }
+      }, 400);
+  }
+  else
+  {
+    //If it's the first move, just play the first move.
+    playButtonSound(buttonToBePressed);
+    animateButtonOnGameSequence("#" + buttonToBePressed);
+  }
+
   changeGameTextToLevel(currentLevel);
 }
 
